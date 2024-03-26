@@ -16,6 +16,7 @@ public class SendMessage {
     private final RedisTemplate<String, ChannelId> redis;
     public boolean Send(Message msg) {
         // TODO: 异步写
+
         Long toUser = msg.getToUserId();
         String key = Key.UserChannelKey(toUser);
         ChannelId channelId = redis.opsForValue().get(key);
@@ -30,6 +31,8 @@ public class SendMessage {
             log.info(toUser + "找不到channelId");
             return false;
         }
+
+        // TODO: 加入定时任务队列，后台检查没收到ACK重新发送消息
         channel.writeAndFlush(msg.toString());
         log.info("发送消息 channel:" + channel.id() + "msg:"+ msg);
         return true;

@@ -19,6 +19,7 @@
         <module>logic</module>
         <module>interface</module>
         <module>interface</module>
+        <module>Test</module>
     </modules>
 
     <properties>
