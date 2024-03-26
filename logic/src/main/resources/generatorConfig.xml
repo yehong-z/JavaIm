@@ -1,37 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
 <generatorConfiguration>
-<!--    <context id="Mysql" targetRuntime="MyBatis3">-->
-<!--        <commentGenerator>-->
-<!--            <property name="nullCatalogMeansCurrent" value="true" />-->
-<!--        </commentGenerator>-->
-<!--        <jdbcConnection driverClass="com.mysql.cj.jdbc.Driver" connectionURL="jdbc:mysql://121.36.89.81:3306/project?useUnicode=true&amp;serverTimezone=UTC" userId="root" password="zyh123456"/>-->
-<!--        <javaModelGenerator targetPackage="com.javaim.dao.entity" targetProject="src/main/java">-->
-<!--            <property name="enableSubPackages" value="true"/>-->
-<!--            <property name="trimStrings" value="true"/>-->
-<!--        </javaModelGenerator>-->
-<!--        <sqlMapGenerator targetPackage="com.javaim.dao.mapper" targetProject="src/main/resources">-->
-<!--            <property name="enableSubPackages" value="true"/>-->
-<!--        </sqlMapGenerator>-->
-<!--        <javaClientGenerator type="XMLMAPPER" targetPackage="com.javaim.dao.mapper" targetProject="src/main/java">-->
-<!--            <property name="enableSubPackages" value="true"/>-->
-<!--        </javaClientGenerator>-->
-<!--        <table schema="project" tableName="proj_users" domainObjectName="User" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"/>-->
+    <context id="Mysql" targetRuntime="MyBatis3">
+        <commentGenerator>
+            <property name="nullCatalogMeansCurrent" value="true" />
+        </commentGenerator>
+        <jdbcConnection driverClass="com.mysql.cj.jdbc.Driver" connectionURL="jdbc:mysql://121.36.89.81:3306/project?useUnicode=true&amp;serverTimezone=UTC" userId="root" password="zyh123456"/>
+        <javaModelGenerator targetPackage="com.zyh.javaim.logic.dao.entity" targetProject="src/main/java">
+            <property name="enableSubPackages" value="true"/>
+            <property name="trimStrings" value="true"/>
+        </javaModelGenerator>
+        <sqlMapGenerator targetPackage="com.zyh.javaim.logic.dao.mapper" targetProject="src/main/resources">
+            <property name="enableSubPackages" value="true"/>
+        </sqlMapGenerator>
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.zyh.javaim.logic.dao.mapper" targetProject="src/main/java">
+            <property name="enableSubPackages" value="true"/>
+        </javaClientGenerator>
+        <table schema="project" tableName="proj_users" domainObjectName="User" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"/>
 
-<!--    </context>-->
+    </context>
     <context id="Mysql_friend" targetRuntime="MyBatis3">
         <commentGenerator>
             <property name="nullCatalogMeansCurrent" value="true" />
         </commentGenerator>
         <jdbcConnection driverClass="com.mysql.cj.jdbc.Driver" connectionURL="jdbc:mysql://121.36.89.81:3306/project?useUnicode=true&amp;serverTimezone=UTC" userId="root" password="zyh123456"/>
-        <javaModelGenerator targetPackage="com.javaim.dao.entity" targetProject="src/main/java">
+        <javaModelGenerator targetPackage="com.zyh.javaim.logic.dao.entity" targetProject="src/main/java">
             <property name="enableSubPackages" value="true"/>
             <property name="trimStrings" value="true"/>
         </javaModelGenerator>
-        <sqlMapGenerator targetPackage="com.javaim.dao.mapper" targetProject="src/main/resources">
+        <sqlMapGenerator targetPackage="com.zyh.javaim.logic.dao.mapper" targetProject="src/main/resources">
             <property name="enableSubPackages" value="true"/>
         </sqlMapGenerator>
-        <javaClientGenerator type="XMLMAPPER" targetPackage="com.javaim.dao.mapper" targetProject="src/main/java">
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.zyh.javaim.logic.dao.mapper" targetProject="src/main/java">
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
         <table schema="project" tableName="im_friend" domainObjectName="Friend" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"/>

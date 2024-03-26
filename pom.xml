@@ -8,6 +8,7 @@
         <version>3.2.4</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
+
     <groupId>org.apache.dubbo</groupId>
     <artifactId>dubbo-spring-boot-demo</artifactId>
     <version>1.0-SNAPSHOT</version>
@@ -16,11 +17,13 @@
     <modules>
         <module>comet</module>
         <module>logic</module>
+        <module>interface</module>
+        <module>interface</module>
     </modules>
 
     <properties>
         <dubbo.version>3.2.0-beta.4</dubbo.version>
-        <spring-boot.version>2.7.8</spring-boot.version>
+        <spring-boot.version>3.2.4</spring-boot.version>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

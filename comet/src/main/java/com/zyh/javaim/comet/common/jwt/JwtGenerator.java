@@ -59,7 +59,7 @@ public class JwtGenerator {
             return userDetail;
         } catch (Exception e) {
 
-            log.error("parseJwtToken" + e.toString());
+            log.error("parseJwtToken" + e);
         }
 
         return new UserDetail();
