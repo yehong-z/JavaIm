@@ -2,10 +2,11 @@ package com.zyh.javaim.comet.service;
 
 import com.zyh.javaim.CometService;
 
+import com.zyh.javaim.Message;
 import com.zyh.javaim.StateReq;
 import com.zyh.javaim.StateResp;
 import com.zyh.javaim.comet.common.convention.redis.Key;
-import com.zyh.javaim.comet.common.message.Message;
+
 import com.zyh.javaim.comet.netty.SendMessage;
 
 
@@ -21,9 +22,9 @@ public class CometServiceImpl implements CometService {
     private final SendMessage sendMessage;
     private final RedisTemplate<String, Integer> redisTemplate;
     @Override
-    public boolean pushUser(Long userId, String msg) {
-        log.info(String.format("push message to %s msg: %s", userId, msg));
-        sendMessage.Send(new Message().setMsg(msg).setToUser(userId));
+    public boolean push(Message message) {
+        log.info(String.format("push message to %s msg: %s", message.getToUserId(), message.getContent()));
+        sendMessage.Send(message);
         return true;
     }
 

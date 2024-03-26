@@ -2,7 +2,7 @@ package com.zyh.javaim;
 
 
 public interface CometService {
-    boolean pushUser(Long userId, String msg);
+    boolean push(Message message);
 
     StateResp state(StateReq req);
 }

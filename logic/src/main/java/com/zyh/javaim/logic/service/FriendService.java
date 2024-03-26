@@ -1,9 +1,9 @@
 package com.zyh.javaim.logic.service;
 
 
+import com.zyh.javaim.Message;
+import com.zyh.javaim.MessageType;
 import com.zyh.javaim.logic.common.context.Context;
-import com.zyh.javaim.logic.common.message.Message;
-import com.zyh.javaim.logic.common.message.MessageType;
 import com.zyh.javaim.logic.common.mq.MessageQueue;
 import com.zyh.javaim.logic.dao.entity.Friend;
 import com.zyh.javaim.logic.dao.mapper.FriendMapper;
@@ -28,9 +28,9 @@ public class FriendService {
 
         // 发送好友请求
         messageQueue.Send(new Message()
-                .setToUser(friendId)
+                .setToUserId(friendId)
                 .setType(MessageType.AddFriend)
-                .setMsg(req.getMsg()));
+                .setContent(req.getMsg()));
 
         return friendAddResp;
     }

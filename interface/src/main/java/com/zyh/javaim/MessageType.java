@@ -1,4 +1,4 @@
-package com.zyh.javaim.comet.common.message;
+package com.zyh.javaim;
 
 public class MessageType {
     public static final int ToUser = 1;

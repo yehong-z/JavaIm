@@ -1,10 +1,7 @@
 package com.zyh.javaim.comet.netty;
 
-
+import com.zyh.javaim.Message;
 import com.zyh.javaim.comet.common.convention.redis.Key;
-
-
-import com.zyh.javaim.comet.common.message.Message;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelId;
 import lombok.RequiredArgsConstructor;
@@ -19,8 +16,8 @@ public class SendMessage {
     private final RedisTemplate<String, ChannelId> redis;
     public boolean Send(Message msg) {
         // TODO: 异步写
-        Long toUser = msg.getToUser();
-        String key = Key.UserChannelKey(msg.getToUser());
+        Long toUser = msg.getToUserId();
+        String key = Key.UserChannelKey(toUser);
         ChannelId channelId = redis.opsForValue().get(key);
         if (channelId == null) {
             // 用户离线，写入redis等

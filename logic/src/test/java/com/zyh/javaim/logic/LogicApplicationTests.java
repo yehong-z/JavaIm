@@ -1,6 +1,7 @@
 package com.zyh.javaim.logic;
 
 import com.zyh.javaim.CometService;
+import com.zyh.javaim.Message;
 import com.zyh.javaim.ServiceDemo;
 
 
@@ -27,7 +28,7 @@ class LogicApplicationTests {
 
     @Test
     void contextLoads1() {
-        System.out.println(pushMessage.pushUser(1L, "111"));
+        System.out.println(pushMessage.push(new Message()));
     }
 
     @Test
