@@ -3,7 +3,6 @@ package com.zyh.javaim.logic.service;
 
 import com.zyh.javaim.*;
 import com.zyh.javaim.logic.common.context.Context;
-import com.zyh.javaim.logic.common.id.Id;
 import com.zyh.javaim.logic.common.mq.MessageQueue;
 import com.zyh.javaim.logic.dao.entity.OfflineMessage;
 import com.zyh.javaim.logic.dao.entity.Seq;
@@ -34,6 +33,7 @@ public class MessageService {
 
         Long fromUserId = Context.getRequestId().getUser().getId();
         Long seq = getSeq(fromUserId);
+        messageResp.setSeqId(seq);
         Message message = new Message()
                 .setContent(msg.getMsg())
                 .setType(MessageType.ToUser)

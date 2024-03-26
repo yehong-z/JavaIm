@@ -24,8 +24,7 @@ public class CometServiceImpl implements CometService {
     @Override
     public boolean push(Message message) {
         log.info(String.format("push message to %s msg: %s", message.getToUserId(), message.getContent()));
-        sendMessage.Send(message);
-        return true;
+        return sendMessage.Send(message);
     }
 
     @Override

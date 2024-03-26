@@ -7,6 +7,8 @@ import org.apache.dubbo.config.annotation.DubboReference;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.Timer;
+
 @SpringBootTest
 class CometApplicationTests {
 
@@ -18,6 +20,11 @@ class CometApplicationTests {
         for (Message message:res) {
             System.out.println(message.content);
         }
+    }
+
+    @Test
+    void TestTime() {
+
     }
 
 }

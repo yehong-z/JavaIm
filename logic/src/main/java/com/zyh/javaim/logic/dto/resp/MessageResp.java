@@ -5,4 +5,5 @@ import lombok.Data;
 @Data
 public class MessageResp {
     private String ok;
+    private Long SeqId;
 }

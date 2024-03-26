@@ -11,6 +11,8 @@ import io.netty.channel.ChannelId;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.channel.group.ChannelGroup;
 import io.netty.channel.group.DefaultChannelGroup;
+import io.netty.handler.timeout.IdleState;
+import io.netty.handler.timeout.IdleStateEvent;
 import io.netty.util.concurrent.GlobalEventExecutor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -58,6 +60,20 @@ public class SocketHandler extends ChannelInboundHandlerAdapter {
         }
 
         redis2.opsForValue().set(Key.UserServerKey(userDetail.getUser().getId()), 1);
+    }
+
+    @Override
+    public void userEventTriggered(ChannelHandlerContext ctx, Object evt) throws Exception {
+        super.userEventTriggered(ctx, evt);
+        if (evt instanceof IdleStateEvent idleStateEvent) {
+            if (idleStateEvent.state() == IdleState.WRITER_IDLE) {
+                log.info("断开连接");
+                ctx.writeAndFlush("超时断开连接");
+                clients.remove(ctx.channel());
+                // TODO: 删除redis中连接信息，删除clients中连接
+            }
+
+        }
     }
 
 
