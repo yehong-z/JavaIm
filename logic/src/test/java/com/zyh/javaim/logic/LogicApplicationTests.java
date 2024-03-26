@@ -1,9 +1,10 @@
 package com.zyh.javaim.logic;
 
-import com.zyh.javaim.PushMessage;
+import com.zyh.javaim.CometService;
 import com.zyh.javaim.ServiceDemo;
 
 
+import com.zyh.javaim.StateReq;
 import org.apache.dubbo.config.annotation.DubboReference;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -13,7 +14,7 @@ class LogicApplicationTests {
     @DubboReference
     private ServiceDemo serviceDemo;
     @DubboReference
-    private PushMessage pushMessage;
+    private CometService pushMessage;
     @Test
     void contextLoads() {
 //        ReferenceConfig<ServiceDemo> reference = new ReferenceConfig<>();
@@ -27,6 +28,11 @@ class LogicApplicationTests {
     @Test
     void contextLoads1() {
         System.out.println(pushMessage.pushUser(1L, "111"));
+    }
+
+    @Test
+    void contextLoads2() {
+        System.out.println(pushMessage.state(new StateReq()).online);
     }
 
 }

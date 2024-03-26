@@ -1,6 +1,8 @@
 package com.zyh.javaim.comet.netty;
 
 
+import com.zyh.javaim.LogicService;
+import com.zyh.javaim.Message;
 import com.zyh.javaim.comet.common.context.UserDetail;
 import com.zyh.javaim.comet.common.convention.redis.Key;
 import com.zyh.javaim.comet.common.jwt.JwtGenerator;
@@ -12,6 +14,7 @@ import io.netty.channel.group.DefaultChannelGroup;
 import io.netty.util.concurrent.GlobalEventExecutor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.dubbo.config.annotation.DubboReference;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 
@@ -24,6 +27,10 @@ import org.springframework.stereotype.Component;
 public class SocketHandler extends ChannelInboundHandlerAdapter {
     public static final ChannelGroup clients = new DefaultChannelGroup(GlobalEventExecutor.INSTANCE);
     private final RedisTemplate<String, ChannelId> redis;
+    private final RedisTemplate<String, Integer> redis2;
+
+    @DubboReference
+    LogicService logicService;
     /**
      * 读取到客户端发来的消息
      *
@@ -40,9 +47,17 @@ public class SocketHandler extends ChannelInboundHandlerAdapter {
 
         // 解析传过来的token，并设置redis 用户id-> channelID的映射
         UserDetail userDetail = JwtGenerator.parseJwtToken(token);
-        log.info("user" + userDetail.getUser().getId() + "连接");
-        redis.opsForValue().set(Key.UserChannelKey(userDetail.getUser().getId()), ctx.channel().id());
+        var UserId = userDetail.getUser().getId();
+        log.info("user" + UserId + "连接");
+        redis.opsForValue().set(Key.UserChannelKey(UserId), ctx.channel().id());
         ctx.channel().writeAndFlush("验证成功\n");
+        // 先拉取离线消息，再注册状态server，否则容易导致消息乱序
+        var offlineMessage = logicService.getOfflineMessage(UserId);
+        for (Message m : offlineMessage) {
+            ctx.channel().writeAndFlush(m.toString());
+        }
+
+        redis2.opsForValue().set(Key.UserServerKey(userDetail.getUser().getId()), 1);
     }
 
 
