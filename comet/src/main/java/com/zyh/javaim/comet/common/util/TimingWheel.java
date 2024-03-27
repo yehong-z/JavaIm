@@ -1,8 +1,12 @@
 package com.zyh.javaim.comet.common.util;
 
+import com.zyh.javaim.Message;
+import com.zyh.javaim.MessageType;
+import com.zyh.javaim.comet.netty.SendMessage;
 import io.netty.util.HashedWheelTimer;
 import io.netty.util.Timeout;
 import io.netty.util.TimerTask;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.Map;
@@ -13,20 +17,26 @@ import java.util.concurrent.TimeUnit;
 public class TimingWheel {
     private static HashedWheelTimer timer = new HashedWheelTimer();
     private static Map<String, Timeout> timeoutMap = new ConcurrentHashMap<>();
-    private void registerTimeout(String eventName, long delaySeconds) {
+    public void registerTimeout(String eventName, Message message) {
         TimerTask task = new TimerTask() {
             @Override
             public void run(Timeout timeout) throws Exception {
-                System.out.println(eventName + " executed after " + delaySeconds + " seconds");
-                timeoutMap.remove(eventName); // 任务执行后移除对应的Timeout
+                // 告知用户发送失败
+                Message failMsg = new Message();
+                failMsg.setMsgSeq(message.msgSeq);
+                failMsg.setType(MessageType.SendFail);
+                // TODO: 调用logic存储离线消息
             }
         };
 
-        Timeout timeout = timer.newTimeout(task, delaySeconds, TimeUnit.SECONDS);
+        Timeout timeout = timer.newTimeout(task, 10, TimeUnit.SECONDS);
         timeoutMap.put(eventName, timeout);
     }
 
-    private void cancelTimeout(String eventName) {
+    public String EventKey(Long toUserId, Long MsgSeq) {
+        return String.format("%s:%s", toUserId, MsgSeq);
+    }
+    public void cancelTimeout(String eventName) {
         Timeout timeout = timeoutMap.get(eventName);
         if (timeout != null) {
             timeout.cancel(); // 取消事件
